@@ -1,4 +1,4 @@
-package com.netty.rpc.codec;
+package com.netty.rpc.service;
 
 import java.io.Serializable;
 

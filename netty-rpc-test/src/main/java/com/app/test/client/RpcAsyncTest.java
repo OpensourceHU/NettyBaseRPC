@@ -8,7 +8,7 @@ import com.app.test.service.HelloService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by OpensourceHU on 2020/3/16.
+ * Created by OpensourceHU on 2021/3/16.
  */
 public class RpcAsyncTest {
     public static void main(String[] args) throws InterruptedException {

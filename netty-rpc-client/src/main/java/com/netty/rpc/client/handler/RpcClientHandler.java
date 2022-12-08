@@ -2,8 +2,8 @@ package com.netty.rpc.client.handler;
 
 import com.netty.rpc.client.connect.ConnectionManager;
 import com.netty.rpc.codec.Beat;
-import com.netty.rpc.codec.RpcRequest;
-import com.netty.rpc.codec.RpcResponse;
+import com.netty.rpc.service.RpcRequest;
+import com.netty.rpc.service.RpcResponse;
 import com.netty.rpc.protocol.RpcProtocol;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -15,7 +15,7 @@ import java.net.SocketAddress;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by OpensourceHU on 2020-03-14.
+ * Created by OpensourceHU on 2021-03-14.
  */
 public class RpcClientHandler extends SimpleChannelInboundHandler<RpcResponse> {
     private static final Logger logger = LoggerFactory.getLogger(RpcClientHandler.class);
@@ -78,7 +78,7 @@ public class RpcClientHandler extends SimpleChannelInboundHandler<RpcResponse> {
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
-            //Send ping
+            //闲置则发心跳包
             sendRequest(Beat.BEAT_PING);
             logger.debug("Client send beat-ping to " + remotePeer);
         } else {

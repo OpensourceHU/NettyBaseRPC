@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * LRU load balance
- * Created by OpensourceHU on 2020-08-01.
+ * Created by OpensourceHU on 2021-08-01.
  */
 public class RpcLoadBalanceLRU extends RpcLoadBalance {
     private ConcurrentMap<String, LinkedHashMap<RpcProtocol, RpcProtocol>> jobLRUMap =
@@ -25,14 +25,14 @@ public class RpcLoadBalanceLRU extends RpcLoadBalance {
         }
 
         // init lru
+        /**
+         * LinkedHashMap
+         * a、accessOrder：ture=访问顺序排序（get/put时排序）/ACCESS-LAST；false=插入顺序排期/FIFO；
+         * b、removeEldestEntry：新增元素时将会调用，返回true时会删除最老元素；
+         *      可封装LinkedHashMap并重写该方法，比如定义最大容量，超出是返回true即可实现固定长度的LRU算法；
+         */
         LinkedHashMap<RpcProtocol, RpcProtocol> lruHashMap = jobLRUMap.get(serviceKey);
         if (lruHashMap == null) {
-            /**
-             * LinkedHashMap
-             * a、accessOrder：ture=访问顺序排序（get/put时排序）/ACCESS-LAST；false=插入顺序排期/FIFO；
-             * b、removeEldestEntry：新增元素时将会调用，返回true时会删除最老元素；
-             *      可封装LinkedHashMap并重写该方法，比如定义最大容量，超出是返回true即可实现固定长度的LRU算法；
-             */
             lruHashMap = new LinkedHashMap<RpcProtocol, RpcProtocol>(16, 0.75f, true) {
                 @Override
                 protected boolean removeEldestEntry(Map.Entry<RpcProtocol, RpcProtocol> eldest) {

@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * RPC Server
- *
+ * 集成Spring
  * @author OpensourceHU
  */
 public class RpcServer extends NettyServer implements ApplicationContextAware, InitializingBean, DisposableBean {
@@ -21,6 +21,11 @@ public class RpcServer extends NettyServer implements ApplicationContextAware, I
         super(serverAddress, registryAddress);
     }
 
+    /**
+     * 扫描注解的方式进行服务注册
+     * @param ctx
+     * @throws BeansException
+     */
     @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         Map<String, Object> serviceBeanMap = ctx.getBeansWithAnnotation(NettyRpcService.class);

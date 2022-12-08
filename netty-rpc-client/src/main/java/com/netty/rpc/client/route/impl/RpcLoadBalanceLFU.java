@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  * LFU load balance
- * Created by OpensourceHU on 2020-08-01.
+ * Created by OpensourceHU on 2021-08-01.
  */
 public class RpcLoadBalanceLFU extends RpcLoadBalance {
     private ConcurrentMap<String, HashMap<RpcProtocol, Integer>> jobLfuMap = new ConcurrentHashMap<String, HashMap<RpcProtocol, Integer>>();

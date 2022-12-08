@@ -4,7 +4,7 @@ import com.netty.rpc.client.RpcClient;
 import com.app.test.service.HelloService;
 
 /**
- * Created by OpensourceHU on 2020-03-11.
+ * Created by OpensourceHU on 2021-03-11.
  */
 public class RpcTest {
 

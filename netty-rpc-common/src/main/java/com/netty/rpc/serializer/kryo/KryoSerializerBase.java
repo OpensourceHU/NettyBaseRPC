@@ -4,13 +4,13 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.pool.KryoPool;
-import com.netty.rpc.serializer.Serializer;
+import com.netty.rpc.serializer.SerializerBase;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class KryoSerializer extends Serializer {
+public class KryoSerializerBase extends SerializerBase {
     private KryoPool pool = KryoPoolFactory.getKryoPoolInstance();
 
     @Override

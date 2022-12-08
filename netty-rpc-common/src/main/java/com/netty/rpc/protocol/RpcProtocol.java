@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 服务的主机\端口\相关信息 类
+ */
 public class RpcProtocol implements Serializable {
     private static final long serialVersionUID = -1102180003395190700L;
     // service host
@@ -24,6 +27,16 @@ public class RpcProtocol implements Serializable {
         return JsonUtil.jsonToObject(json, RpcProtocol.class);
     }
 
+    /**
+     * 判断RPCService集合是否相等  不关心元素顺序问题 也不关心是否重复
+     * @param thisList
+     * @param thatList
+     * @return
+     */
+    private boolean isListEquals(List<RpcServiceInfo> thisList, List<RpcServiceInfo> thatList) {
+        return thisList.containsAll(thatList) && thatList.containsAll(thisList);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,18 +45,6 @@ public class RpcProtocol implements Serializable {
         return port == that.port &&
                 Objects.equals(host, that.host) &&
                 isListEquals(serviceInfoList, that.getServiceInfoList());
-    }
-
-    private boolean isListEquals(List<RpcServiceInfo> thisList, List<RpcServiceInfo> thatList) {
-        if (thisList == null && thatList == null) {
-            return true;
-        }
-        if ((thisList == null && thatList != null)
-                || (thisList != null && thatList == null)
-                || (thisList.size() != thatList.size())) {
-            return false;
-        }
-        return thisList.containsAll(thatList) && thatList.containsAll(thisList);
     }
 
     @Override

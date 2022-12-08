@@ -1,15 +1,15 @@
 package com.netty.rpc.server.core;
 
 import com.netty.rpc.codec.*;
-import com.netty.rpc.serializer.Serializer;
-import com.netty.rpc.serializer.hessian.HessianSerializer;
-import com.netty.rpc.serializer.kryo.KryoSerializer;
-import com.netty.rpc.serializer.protostuff.ProtostuffSerializer;
+import com.netty.rpc.serializer.SerializerBase;
+import com.netty.rpc.serializer.kryo.KryoSerializerBase;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
+import com.netty.rpc.service.RpcRequest;
+import com.netty.rpc.service.RpcResponse;
 
 import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -26,14 +26,12 @@ public class RpcServerInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     public void initChannel(SocketChannel channel) throws Exception {
-//        Serializer serializer = ProtostuffSerializer.class.newInstance();
-//        Serializer serializer = HessianSerializer.class.newInstance();
-        Serializer serializer = KryoSerializer.class.newInstance();
+        SerializerBase serializerBase = KryoSerializerBase.class.newInstance();
         ChannelPipeline cp = channel.pipeline();
         cp.addLast(new IdleStateHandler(0, 0, Beat.BEAT_TIMEOUT, TimeUnit.SECONDS));
         cp.addLast(new LengthFieldBasedFrameDecoder(65536, 0, 4, 0, 0));
-        cp.addLast(new RpcDecoder(RpcRequest.class, serializer));
-        cp.addLast(new RpcEncoder(RpcResponse.class, serializer));
+        cp.addLast(new RpcDecoder(RpcRequest.class, serializerBase));
+        cp.addLast(new RpcEncoder(RpcResponse.class, serializerBase));
         cp.addLast(new RpcServerHandler(handlerMap, threadPoolExecutor));
     }
 }

@@ -5,7 +5,7 @@ package com.netty.rpc.config;
  *
  * @author OpensourceHU
  */
-public interface Constant {
+public interface ZKConstant {
     int ZK_SESSION_TIMEOUT = 5000;
     int ZK_CONNECTION_TIMEOUT = 5000;
 

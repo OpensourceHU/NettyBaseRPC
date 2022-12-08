@@ -1,8 +1,8 @@
 package com.netty.rpc.client.handler;
 
 import com.netty.rpc.client.RpcClient;
-import com.netty.rpc.codec.RpcRequest;
-import com.netty.rpc.codec.RpcResponse;
+import com.netty.rpc.service.RpcRequest;
+import com.netty.rpc.service.RpcResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,8 +14,8 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * RPCFuture for async RPC call
- * Created by OpensourceHU on 2020-03-15.
+ * RPCFuture for async RPC call 支持异步调用
+ * Created by OpensourceHU on 2021-03-15.
  */
 public class RpcFuture implements Future<Object> {
     private static final Logger logger = LoggerFactory.getLogger(RpcFuture.class);
@@ -125,6 +125,9 @@ public class RpcFuture implements Future<Object> {
         });
     }
 
+    /**
+     * 继承AQS实现同步器
+     */
     static class Sync extends AbstractQueuedSynchronizer {
         private static final long serialVersionUID = 1L;
 

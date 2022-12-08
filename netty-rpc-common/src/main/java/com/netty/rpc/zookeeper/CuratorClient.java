@@ -1,6 +1,6 @@
 package com.netty.rpc.zookeeper;
 
-import com.netty.rpc.config.Constant;
+import com.netty.rpc.config.ZKConstant;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
@@ -26,11 +26,11 @@ public class CuratorClient {
     }
 
     public CuratorClient(String connectString, int timeout) {
-        this(connectString, Constant.ZK_NAMESPACE, timeout, timeout);
+        this(connectString, ZKConstant.ZK_NAMESPACE, timeout, timeout);
     }
 
     public CuratorClient(String connectString) {
-        this(connectString, Constant.ZK_NAMESPACE, Constant.ZK_SESSION_TIMEOUT, Constant.ZK_CONNECTION_TIMEOUT);
+        this(connectString, ZKConstant.ZK_NAMESPACE, ZKConstant.ZK_SESSION_TIMEOUT, ZKConstant.ZK_CONNECTION_TIMEOUT);
     }
 
     public CuratorFramework getClient() {

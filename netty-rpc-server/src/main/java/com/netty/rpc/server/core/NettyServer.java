@@ -42,9 +42,12 @@ public class NettyServer extends Server {
 
             @Override
             public void run() {
+                //指派Selector
                 EventLoopGroup bossGroup = new NioEventLoopGroup();
+                //工作Selector
                 EventLoopGroup workerGroup = new NioEventLoopGroup();
                 try {
+                    //服务器启动器  初始化
                     ServerBootstrap bootstrap = new ServerBootstrap();
                     bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                             .childHandler(new RpcServerInitializer(serviceMap, threadPoolExecutor))

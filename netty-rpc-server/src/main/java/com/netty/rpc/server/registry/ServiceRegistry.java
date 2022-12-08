@@ -1,6 +1,6 @@
 package com.netty.rpc.server.registry;
 
-import com.netty.rpc.config.Constant;
+import com.netty.rpc.config.ZKConstant;
 import com.netty.rpc.protocol.RpcProtocol;
 import com.netty.rpc.protocol.RpcServiceInfo;
 import com.netty.rpc.util.ServiceUtil;
@@ -17,12 +17,11 @@ import java.util.Map;
 
 /**
  * 服务注册
- *
  * @author OpensourceHU
  */
 public class ServiceRegistry {
     private static final Logger logger = LoggerFactory.getLogger(ServiceRegistry.class);
-
+    //ZK Client
     private CuratorClient curatorClient;
     private List<String> pathList = new ArrayList<>();
 
@@ -34,6 +33,7 @@ public class ServiceRegistry {
         // Register service info
         List<RpcServiceInfo> serviceInfoList = new ArrayList<>();
         for (String key : serviceMap.keySet()) {
+            //设置服务名和版本号
             String[] serviceInfo = key.split(ServiceUtil.SERVICE_CONCAT_TOKEN);
             if (serviceInfo.length > 0) {
                 RpcServiceInfo rpcServiceInfo = new RpcServiceInfo();
@@ -49,14 +49,16 @@ public class ServiceRegistry {
                 logger.warn("Can not get service name and version: {} ", key);
             }
         }
+        //在当前的主机和端口下注册服务
         try {
             RpcProtocol rpcProtocol = new RpcProtocol();
             rpcProtocol.setHost(host);
             rpcProtocol.setPort(port);
             rpcProtocol.setServiceInfoList(serviceInfoList);
+            //写入ZK节点
             String serviceData = rpcProtocol.toJson();
             byte[] bytes = serviceData.getBytes();
-            String path = Constant.ZK_DATA_PATH + "-" + rpcProtocol.hashCode();
+            String path = ZKConstant.ZK_DATA_PATH + "-" + rpcProtocol.hashCode();
             path = this.curatorClient.createPathData(path, bytes);
             pathList.add(path);
             logger.info("Register {} new service, host: {}, port: {}", serviceInfoList.size(), host, port);

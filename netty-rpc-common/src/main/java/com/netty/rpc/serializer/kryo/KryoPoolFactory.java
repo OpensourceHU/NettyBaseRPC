@@ -3,8 +3,8 @@ package com.netty.rpc.serializer.kryo;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.pool.KryoFactory;
 import com.esotericsoftware.kryo.pool.KryoPool;
-import com.netty.rpc.codec.RpcRequest;
-import com.netty.rpc.codec.RpcResponse;
+import com.netty.rpc.service.RpcRequest;
+import com.netty.rpc.service.RpcResponse;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
 public class KryoPoolFactory {

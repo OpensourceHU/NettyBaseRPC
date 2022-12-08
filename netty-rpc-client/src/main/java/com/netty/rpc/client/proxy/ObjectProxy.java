@@ -3,7 +3,7 @@ package com.netty.rpc.client.proxy;
 import com.netty.rpc.client.connect.ConnectionManager;
 import com.netty.rpc.client.handler.RpcFuture;
 import com.netty.rpc.client.handler.RpcClientHandler;
-import com.netty.rpc.codec.RpcRequest;
+import com.netty.rpc.service.RpcRequest;
 import com.netty.rpc.util.ServiceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,8 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 /**
- * Created by OpensourceHU on 2020-03-16.
+ * 客户端使用代理模式透明化服务调用
+ * Created by OpensourceHU on 2021-03-16.
  */
 public class ObjectProxy<T, P> implements InvocationHandler, RpcService<T, P, SerializableFunction<T>> {
     private static final Logger logger = LoggerFactory.getLogger(ObjectProxy.class);
@@ -116,25 +117,6 @@ public class ObjectProxy<T, P> implements InvocationHandler, RpcService<T, P, Se
 
     private Class<?> getClassType(Object obj) {
         Class<?> classType = obj.getClass();
-//        String typeName = classType.getName();
-//        switch (typeName) {
-//            case "java.lang.Integer":
-//                return Integer.TYPE;
-//            case "java.lang.Long":
-//                return Long.TYPE;
-//            case "java.lang.Float":
-//                return Float.TYPE;
-//            case "java.lang.Double":
-//                return Double.TYPE;
-//            case "java.lang.Character":
-//                return Character.TYPE;
-//            case "java.lang.Boolean":
-//                return Boolean.TYPE;
-//            case "java.lang.Short":
-//                return Short.TYPE;
-//            case "java.lang.Byte":
-//                return Byte.TYPE;
-//        }
         return classType;
     }
 

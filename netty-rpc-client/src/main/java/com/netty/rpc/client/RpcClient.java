@@ -22,8 +22,7 @@ import java.util.concurrent.TimeUnit;
  * RPC Client（Create RPC proxy）
  *
  * @author OpensourceHU
- * @author g-yu
- */
+ * */
 public class RpcClient implements ApplicationContextAware, DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(RpcClient.class);
 

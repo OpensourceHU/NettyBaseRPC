@@ -1,19 +1,19 @@
 package com.netty.rpc.serializer.hessian;
 
-import com.caucho.hessian.io.HessianInput;
-import com.caucho.hessian.io.HessianOutput;
-import com.netty.rpc.serializer.Serializer;
+import com.caucho.hessian.io.Hessian2Input;
+import com.caucho.hessian.io.Hessian2Output;
+import com.netty.rpc.serializer.SerializerBase;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class Hessian1Serializer extends Serializer {
+public class HessianSerializerBase extends SerializerBase {
 
     @Override
     public <T> byte[] serialize(T obj) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        HessianOutput ho = new HessianOutput(os);
+        Hessian2Output ho = new Hessian2Output(os);
         try {
             ho.writeObject(obj);
             ho.flush();
@@ -33,12 +33,13 @@ public class Hessian1Serializer extends Serializer {
                 throw new RuntimeException(e);
             }
         }
+
     }
 
     @Override
     public <T> Object deserialize(byte[] bytes, Class<T> clazz) {
         ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-        HessianInput hi = new HessianInput(is);
+        Hessian2Input hi = new Hessian2Input(is);
         try {
             Object result = hi.readObject();
             return result;

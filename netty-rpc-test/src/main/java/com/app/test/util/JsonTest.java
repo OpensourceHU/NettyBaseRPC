@@ -1,7 +1,7 @@
 package com.app.test.util;
 
-import com.netty.rpc.codec.RpcRequest;
-import com.netty.rpc.codec.RpcResponse;
+import com.netty.rpc.service.RpcRequest;
+import com.netty.rpc.service.RpcResponse;
 import com.app.test.service.Person;
 import com.app.test.service.HelloServiceImpl;
 import com.netty.rpc.util.JsonUtil;
@@ -10,7 +10,7 @@ import com.netty.rpc.util.SerializationUtil;
 import java.util.UUID;
 
 /**
- * Created by jsc on 2020-03-10.
+ * Created by jsc on 2021-03-10.
  */
 public class JsonTest {
     public static void main(String[] args) {

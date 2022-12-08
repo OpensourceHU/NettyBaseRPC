@@ -1,8 +1,8 @@
 package com.netty.rpc.server.core;
 
 import com.netty.rpc.codec.Beat;
-import com.netty.rpc.codec.RpcRequest;
-import com.netty.rpc.codec.RpcResponse;
+import com.netty.rpc.service.RpcRequest;
+import com.netty.rpc.service.RpcResponse;
 import com.netty.rpc.util.ServiceUtil;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * RPC Handler（RPC request processor）
- *
+ * 一个只处理 RPCrequest的Handler
  * @author OpensourceHU
  */
 public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
@@ -26,6 +26,7 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
     private static final Logger logger = LoggerFactory.getLogger(RpcServerHandler.class);
 
     private final Map<String, Object> handlerMap;
+
     private final ThreadPoolExecutor serverHandlerPool;
 
     public RpcServerHandler(Map<String, Object> handlerMap, final ThreadPoolExecutor threadPoolExecutor) {
@@ -33,6 +34,12 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         this.serverHandlerPool = threadPoolExecutor;
     }
 
+    /**
+     * 从channel 中读取
+     * @param ctx           the {@link ChannelHandlerContext} which this {@link SimpleChannelInboundHandler}
+     *                      belongs to
+     * @param request           the message to handle
+     */
     @Override
     public void channelRead0(final ChannelHandlerContext ctx, final RpcRequest request) {
         // filter beat ping
@@ -64,6 +71,12 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         });
     }
 
+    /**
+     * 调用相应函数 返回处理结果
+     * @param request
+     * @return
+     * @throws Throwable
+     */
     private Object handle(RpcRequest request) throws Throwable {
         String className = request.getClassName();
         String version = request.getVersion();
@@ -78,25 +91,8 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         String methodName = request.getMethodName();
         Class<?>[] parameterTypes = request.getParameterTypes();
         Object[] parameters = request.getParameters();
-
-        logger.debug(serviceClass.getName());
-        logger.debug(methodName);
-        for (int i = 0; i < parameterTypes.length; ++i) {
-            logger.debug(parameterTypes[i].getName());
-        }
-        for (int i = 0; i < parameters.length; ++i) {
-            logger.debug(parameters[i].toString());
-        }
-
-        // JDK reflect
-//        Method method = serviceClass.getMethod(methodName, parameterTypes);
-//        method.setAccessible(true);
-//        return method.invoke(serviceBean, parameters);
-
         // Cglib reflect
         FastClass serviceFastClass = FastClass.create(serviceClass);
-//        FastMethod serviceFastMethod = serviceFastClass.getMethod(methodName, parameterTypes);
-//        return serviceFastMethod.invoke(serviceBean, parameters);
         // for higher-performance
         int methodIndex = serviceFastClass.getIndex(methodName, parameterTypes);
         return serviceFastClass.invoke(methodIndex, serviceBean, parameters);
@@ -108,8 +104,15 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         ctx.close();
     }
 
+    /**
+     * 唤醒ChannelPipeline中的下一个Handler
+     * @param ctx
+     * @param evt
+     * @throws Exception
+     */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        //如果是闲置的 关闭channel
         if (evt instanceof IdleStateEvent) {
             ctx.channel().close();
             logger.warn("Channel idle in last {} seconds, close it", Beat.BEAT_TIMEOUT);

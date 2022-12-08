@@ -1,7 +1,7 @@
 package com.netty.rpc.client.discovery;
 
 import com.netty.rpc.client.connect.ConnectionManager;
-import com.netty.rpc.config.Constant;
+import com.netty.rpc.config.ZKConstant;
 import com.netty.rpc.protocol.RpcProtocol;
 import com.netty.rpc.zookeeper.CuratorClient;
 import org.apache.curator.framework.CuratorFramework;
@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 服务发现
- *
+ * 使用ZK实现服务发现
  * @author OpensourceHU
  */
 public class ServiceDiscovery {
@@ -35,7 +34,7 @@ public class ServiceDiscovery {
             logger.info("Get initial service info");
             getServiceAndUpdateServer();
             // Add watch listener
-            curatorClient.watchPathChildrenNode(Constant.ZK_REGISTRY_PATH, new PathChildrenCacheListener() {
+            curatorClient.watchPathChildrenNode(ZKConstant.ZK_REGISTRY_PATH, new PathChildrenCacheListener() {
                 @Override
                 public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
                     PathChildrenCacheEvent.Type type = pathChildrenCacheEvent.getType();
@@ -64,11 +63,11 @@ public class ServiceDiscovery {
 
     private void getServiceAndUpdateServer() {
         try {
-            List<String> nodeList = curatorClient.getChildren(Constant.ZK_REGISTRY_PATH);
+            List<String> nodeList = curatorClient.getChildren(ZKConstant.ZK_REGISTRY_PATH);
             List<RpcProtocol> dataList = new ArrayList<>();
             for (String node : nodeList) {
                 logger.debug("Service node: " + node);
-                byte[] bytes = curatorClient.getData(Constant.ZK_REGISTRY_PATH + "/" + node);
+                byte[] bytes = curatorClient.getData(ZKConstant.ZK_REGISTRY_PATH + "/" + node);
                 String json = new String(bytes);
                 RpcProtocol rpcProtocol = RpcProtocol.fromJson(json);
                 dataList.add(rpcProtocol);
