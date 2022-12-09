@@ -2,8 +2,8 @@ package com.netty.rpc.client.handler;
 
 import com.netty.rpc.client.connect.ConnectionManager;
 import com.netty.rpc.codec.Beat;
-import com.netty.rpc.service.RpcRequest;
-import com.netty.rpc.service.RpcResponse;
+import com.netty.rpc.DTO.RpcRequest;
+import com.netty.rpc.DTO.RpcResponse;
 import com.netty.rpc.protocol.RpcProtocol;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;

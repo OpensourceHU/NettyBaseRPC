@@ -1,7 +1,7 @@
 package com.app.test.util;
 
-import com.netty.rpc.service.RpcRequest;
-import com.netty.rpc.service.RpcResponse;
+import com.netty.rpc.DTO.RpcRequest;
+import com.netty.rpc.DTO.RpcResponse;
 import com.app.test.service.Person;
 import com.app.test.service.HelloServiceImpl;
 import com.netty.rpc.util.JsonUtil;

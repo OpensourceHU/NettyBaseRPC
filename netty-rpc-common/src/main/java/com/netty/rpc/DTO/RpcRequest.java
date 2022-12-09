@@ -1,4 +1,4 @@
-package com.netty.rpc.service;
+package com.netty.rpc.DTO;
 
 import java.io.Serializable;
 

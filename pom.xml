@@ -64,7 +64,7 @@
             <artifactId>netty-all</artifactId>
             <version>${netty.version}</version>
         </dependency>
-
+        <!--Google Guava-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * Created by OpensourceHU on 2021-08-01.
+ * 负载均衡模式的选择
  */
 public abstract class RpcLoadBalance {
     // Service map: group by service name

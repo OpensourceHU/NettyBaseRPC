@@ -1,6 +1,6 @@
 package com.netty.rpc.codec;
 
-import com.netty.rpc.service.RpcRequest;
+import com.netty.rpc.DTO.RpcRequest;
 
 /**
  * 心跳包

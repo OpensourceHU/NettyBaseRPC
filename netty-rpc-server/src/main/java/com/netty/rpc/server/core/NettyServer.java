@@ -44,16 +44,22 @@ public class NettyServer extends Server {
             public void run() {
                 //指派Selector
                 EventLoopGroup bossGroup = new NioEventLoopGroup();
-                //工作Selector
+                //工作组
                 EventLoopGroup workerGroup = new NioEventLoopGroup();
                 try {
                     //服务器启动器  初始化
                     ServerBootstrap bootstrap = new ServerBootstrap();
-                    bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+                    bootstrap.group(bossGroup, workerGroup)
+                            //ServerChannel类
+                            .channel(NioServerSocketChannel.class)
+                            //已被添加的子Channel的Handler
                             .childHandler(new RpcServerInitializer(serviceMap, threadPoolExecutor))
+                            //新创建channel的channelConfig
                             .option(ChannelOption.SO_BACKLOG, 128)
+                            //子channel的channelConfig
                             .childOption(ChannelOption.SO_KEEPALIVE, true);
 
+                    //绑定 host 与 port
                     String[] array = serverAddress.split(":");
                     String host = array[0];
                     int port = Integer.parseInt(array[1]);
@@ -72,6 +78,7 @@ public class NettyServer extends Server {
                     }
                 } finally {
                     try {
+                        //释放资源 优雅停机
                         serviceRegistry.unregisterService();
                         workerGroup.shutdownGracefully();
                         bossGroup.shutdownGracefully();

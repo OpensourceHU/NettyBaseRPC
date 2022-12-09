@@ -8,8 +8,8 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
-import com.netty.rpc.service.RpcRequest;
-import com.netty.rpc.service.RpcResponse;
+import com.netty.rpc.DTO.RpcRequest;
+import com.netty.rpc.DTO.RpcResponse;
 
 import java.util.concurrent.TimeUnit;
 
