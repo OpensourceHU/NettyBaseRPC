@@ -3,7 +3,8 @@ package com.netty.rpc.util;
 import java.util.concurrent.*;
 
 public class ThreadPoolUtil {
-    public static ThreadPoolExecutor makeServerThreadPool(final String serviceName, int corePoolSize, int maxPoolSize) {
+    public static ThreadPoolExecutor makeServerThreadPool(final String serviceName, int corePoolSize,
+                                                          int maxPoolSize) {
         ThreadPoolExecutor serverHandlerPool = new ThreadPoolExecutor(
                 corePoolSize,
                 maxPoolSize,
