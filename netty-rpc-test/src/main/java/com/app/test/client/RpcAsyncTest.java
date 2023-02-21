@@ -12,10 +12,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class RpcAsyncTest {
     public static void main(String[] args) throws InterruptedException {
-        final RpcClient rpcClient = new RpcClient("10.217.59.164:2181");
-
-        int threadNum = 1;
-        final int requestNum = 100;
+        final RpcClient rpcClient = new RpcClient("127.0.0.1:2181");
+        int coreNum = Runtime.getRuntime().availableProcessors();
+        int threadNum = coreNum;
+        final int requestNum = 1000;
         Thread[] threads = new Thread[threadNum];
 
         long startTime = System.currentTimeMillis();
@@ -29,16 +29,16 @@ public class RpcAsyncTest {
                             RpcService client = rpcClient.createAsyncService(HelloService.class, "2.0");
                             RpcFuture helloFuture = client.call("hello", Integer.toString(i));
                             String result = (String) helloFuture.get(3000, TimeUnit.MILLISECONDS);
-                            if (!result.equals("Hi " + i)) {
-                                System.out.println("error = " + result);
-                            } else {
-                                System.out.println("result = " + result);
-                            }
-                            try {
-                                Thread.sleep(5 * 1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+//                            if (!result.equals("Hi " + i)) {
+//                                System.out.println("error = " + result);
+//                            } else {
+//                                System.out.println("result = " + result);
+//                            }
+//                            try {
+//                                Thread.sleep(5 * 1000);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
                         } catch (Exception e) {
                             System.out.println(e.toString());
                         }

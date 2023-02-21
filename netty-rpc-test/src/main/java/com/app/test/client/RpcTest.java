@@ -9,10 +9,10 @@ import com.app.test.service.HelloService;
 public class RpcTest {
 
     public static void main(String[] args) throws InterruptedException {
-        final RpcClient rpcClient = new RpcClient("10.217.59.164:2181");
-
-        int threadNum = 1;
-        final int requestNum = 50;
+        final RpcClient rpcClient = new RpcClient("127.0.0.1:2181");
+        int coreNum = Runtime.getRuntime().availableProcessors();
+        int threadNum = coreNum;
+        final int requestNum = 1000;
         Thread[] threads = new Thread[threadNum];
 
         long startTime = System.currentTimeMillis();
@@ -25,16 +25,16 @@ public class RpcTest {
                         try {
                             final HelloService syncClient = rpcClient.createService(HelloService.class, "1.0");
                             String result = syncClient.hello(Integer.toString(i));
-                            if (!result.equals("Hello " + i)) {
-                                System.out.println("error = " + result);
-                            } else {
-                                System.out.println("result = " + result);
-                            }
-                            try {
-                                Thread.sleep(5 * 1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+//                            if (!result.equals("Hello " + i)) {
+//                                System.out.println("error = " + result);
+//                            } else {
+//                                System.out.println("result = " + result);
+//                            }
+//                            try {
+//                                Thread.sleep(5 * 1000);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
                         } catch (Exception ex) {
                             System.out.println(ex.toString());
                         }

@@ -9,6 +9,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleStateEvent;
+import java.lang.reflect.Method;
 import net.sf.cglib.reflect.FastClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,11 +96,16 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         String methodName = request.getMethodName();
         Class<?>[] parameterTypes = request.getParameterTypes();
         Object[] parameters = request.getParameters();
-        // Cglib reflect
-        FastClass serviceFastClass = FastClass.create(serviceClass);
-        // for higher-performance
-        int methodIndex = serviceFastClass.getIndex(methodName, parameterTypes);
-        return serviceFastClass.invoke(methodIndex, serviceBean, parameters);
+        //jdk reflect
+        Method method = serviceClass.getMethod(methodName, parameterTypes);
+        method.setAccessible(true);
+        return method.invoke(serviceBean, parameters);
+
+//        // Cglib reflect
+//        FastClass serviceFastClass = FastClass.create(serviceClass);
+//        // for higher-performance
+//        int methodIndex = serviceFastClass.getIndex(methodName, parameterTypes);
+//        return serviceFastClass.invoke(methodIndex, serviceBean, parameters);
     }
 
     @Override
