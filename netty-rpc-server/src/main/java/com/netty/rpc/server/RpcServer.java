@@ -22,7 +22,7 @@ public class RpcServer extends NettyServer implements ApplicationContextAware, I
     }
 
     /**
-     * 扫描注解的方式进行服务注册
+     * 服务器启动时 以扫描注解的方式进行服务注册
      * @param ctx
      * @throws BeansException
      */
