@@ -1,5 +1,5 @@
 # Netty_Base_RPC
-一款基于Netty的轻量级RPC框架， 计网课设
+一款基于Netty的轻量级RPC框架
 
 
 
