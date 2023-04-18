@@ -1,8 +1,8 @@
 package com.netty.rpc.server.registry;
 
 import com.netty.rpc.config.ZKConstant;
-import com.netty.rpc.protocol.RpcProtocol;
-import com.netty.rpc.protocol.RpcServiceInfo;
+import com.netty.rpc.IDL.RpcProtocol;
+import com.netty.rpc.IDL.RpcServiceInfo;
 import com.netty.rpc.util.ServiceUtil;
 import com.netty.rpc.zookeeper.CuratorClient;
 import org.apache.curator.framework.CuratorFramework;

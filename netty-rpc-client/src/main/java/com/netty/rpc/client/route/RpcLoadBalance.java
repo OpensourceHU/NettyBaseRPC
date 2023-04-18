@@ -1,8 +1,8 @@
 package com.netty.rpc.client.route;
 
 import com.netty.rpc.client.handler.RpcClientHandler;
-import com.netty.rpc.protocol.RpcProtocol;
-import com.netty.rpc.protocol.RpcServiceInfo;
+import com.netty.rpc.IDL.RpcProtocol;
+import com.netty.rpc.IDL.RpcServiceInfo;
 import com.netty.rpc.util.ServiceUtil;
 import org.apache.commons.collections4.map.HashedMap;
 

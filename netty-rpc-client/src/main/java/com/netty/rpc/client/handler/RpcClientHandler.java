@@ -4,7 +4,7 @@ import com.netty.rpc.client.connect.ConnectionManager;
 import com.netty.rpc.codec.Beat;
 import com.netty.rpc.DTO.RpcRequest;
 import com.netty.rpc.DTO.RpcResponse;
-import com.netty.rpc.protocol.RpcProtocol;
+import com.netty.rpc.IDL.RpcProtocol;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleStateEvent;

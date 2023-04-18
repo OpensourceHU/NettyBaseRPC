@@ -2,7 +2,7 @@ package com.netty.rpc.client.discovery;
 
 import com.netty.rpc.client.connect.ConnectionManager;
 import com.netty.rpc.config.ZKConstant;
-import com.netty.rpc.protocol.RpcProtocol;
+import com.netty.rpc.IDL.RpcProtocol;
 import com.netty.rpc.zookeeper.CuratorClient;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;

@@ -2,7 +2,7 @@ package com.netty.rpc.client.route.impl;
 
 import com.netty.rpc.client.handler.RpcClientHandler;
 import com.netty.rpc.client.route.RpcLoadBalance;
-import com.netty.rpc.protocol.RpcProtocol;
+import com.netty.rpc.IDL.RpcProtocol;
 
 import java.util.List;
 import java.util.Map;

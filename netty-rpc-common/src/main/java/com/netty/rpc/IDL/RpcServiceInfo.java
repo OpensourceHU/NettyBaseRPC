@@ -1,4 +1,4 @@
-package com.netty.rpc.protocol;
+package com.netty.rpc.IDL;
 
 import com.netty.rpc.util.JsonUtil;
 
