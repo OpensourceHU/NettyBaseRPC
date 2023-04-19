@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContextAware;
 import java.util.Map;
 
 /**
- * RPC Server
+ * RPC Server子类
  * 集成Spring
  * @author OpensourceHU
  */

@@ -1,11 +1,11 @@
 package com.netty.rpc.client.connect;
 
+import com.netty.rpc.IDL.RpcProtocol;
+import com.netty.rpc.IDL.RpcServiceInfo;
 import com.netty.rpc.client.handler.RpcClientHandler;
 import com.netty.rpc.client.handler.RpcClientInitializer;
 import com.netty.rpc.client.route.RpcLoadBalance;
-import com.netty.rpc.client.route.impl.RpcLoadBalanceRoundRobin;
-import com.netty.rpc.IDL.RpcProtocol;
-import com.netty.rpc.IDL.RpcServiceInfo;
+import com.netty.rpc.client.route.normal.RpcLoadBalanceRoundRobin;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -39,13 +39,18 @@ public class ConnectionManager {
   private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 8,
       600L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(1000));
 
-  private Map<RpcProtocol, RpcClientHandler> connectedServerNodes = new ConcurrentHashMap<>();
+  public Map<RpcProtocol, RpcClientHandler> connectedServerNodes = new ConcurrentHashMap<>();
   //写时复制集合 小数据量不用加锁； 相当于一个本地缓存，存上一次读取时ZK中RPC服务信息，每次读取ZK时更新
   private CopyOnWriteArraySet<RpcProtocol> rpcProtocolSet = new CopyOnWriteArraySet<>();
   private ReentrantLock lock = new ReentrantLock();
   private Condition connected = lock.newCondition();
   private long waitTimeout = 5000;
   private RpcLoadBalance loadBalance = new RpcLoadBalanceRoundRobin();
+
+  public void setLoadBalance(RpcLoadBalance loadBalance) {
+    this.loadBalance = loadBalance;
+  }
+
   private volatile boolean isRunning = true;
 
   private ConnectionManager() {
