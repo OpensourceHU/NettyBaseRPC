@@ -1,41 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>NettyRpc</artifactId>
-        <groupId>com.netty.rpc</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>NettyRpc</artifactId>
+    <groupId>com.netty.rpc</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>9</source>
+          <target>9</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>netty-rpc-test</artifactId>
+  <artifactId>netty-rpc-test</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
+    </dependency>
 
-        <dependency>
-            <groupId>com.netty.rpc</groupId>
-            <artifactId>netty-rpc-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+    <dependency>
+      <groupId>com.netty.rpc</groupId>
+      <artifactId>netty-rpc-common</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
 
-        <dependency>
-            <groupId>com.netty.rpc</groupId>
-            <artifactId>netty-rpc-server</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+    <dependency>
+      <groupId>com.netty.rpc</groupId>
+      <artifactId>netty-rpc-server</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
 
-        <dependency>
-            <groupId>com.netty.rpc</groupId>
-            <artifactId>netty-rpc-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>com.netty.rpc</groupId>
+      <artifactId>netty-rpc-client</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.12.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>31.1-jre</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.2.2</version>
+    </dependency>
+
+
+  </dependencies>
+
 
 </project>

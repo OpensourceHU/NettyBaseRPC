@@ -51,15 +51,14 @@ public class NettyServer extends Server {
           //服务器启动器  初始化
           ServerBootstrap bootstrap = new ServerBootstrap();
           bootstrap.group(bossGroup, workerGroup)
-              //ServerChannel类
+              //设置ServerChannel类
               .channel(NioServerSocketChannel.class)
-              //已被添加的子Channel的Handler
+              //设置ChannelInitializer类
               .childHandler(new RpcServerInitializer(serviceMap, threadPoolExecutor))
-              //新创建channel的channelConfig
+              //最大连接数
               .option(ChannelOption.SO_BACKLOG, 128)
-              //子channel的channelConfig
+              //开启长连接
               .childOption(ChannelOption.SO_KEEPALIVE, true);
-
           //解析出IP与端口
           String[] array = serverAddress.split(":");
           String host = array[0];
